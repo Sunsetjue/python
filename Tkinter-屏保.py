@@ -29,7 +29,7 @@ class Ball():
         self.xspeed = random.randint(4,20)
         self.yspeed = random.randint(3,15)
         #定义球的大小，半径
-        self.size = random.randint(1,30)
+        self.size = random.randint(10,50)
         #定义屏幕的大小
         self.scrnwidth = scrnwidth
         self.scrnheight = scrnheight
@@ -38,7 +38,7 @@ class Ball():
         # 颜色表示的方法：RGB表示法：三个数字，每个数字都在0～255之间，表示红绿蓝三个颜色之间的大小
         #此处用lambda表达式
         c = lambda :random.randint(0,255)
-        self.color = '#%02x%02x%2x'%(c(),c(),c())
+        self.color = '#%02x%02x%2x' % (c(),c(),c())
         #最后需要在画布上画出一个个球
         # tkinter没有画圆形函数
         # 只有一个画椭圆函数，画椭圆需要定义两个坐标，
@@ -51,10 +51,12 @@ class Ball():
         x2 = self.xcoordinate + self.size
         y2 = self.ycoordinate - self.size
             # 定义好左上角和右下角坐标后，进行画圆，填充圆的内部颜色和画出外圈的圈
-        self.item = self.canvas.create_oval(x1, y1, x2, y2, fill=self.color)
+        self.item = self.canvas.create_oval(x1, y1, x2, y2, fill=self.color,outline=self.color)
 
             #球创造出来了，则要实现球的移动
     def move_ball(self):
+        self.xcoordinate += self.xspeed
+        self.ycoordinate += self.yspeed
             #移动会撞墙，撞完墙则要回头
         if self.ycoordinate + self.size >= self.scrnheight:
             self.yspeed *= -1
@@ -67,8 +69,8 @@ class Ball():
                 #移动球的时候，需要球移动的速度
         self.canvas.move(self.item,self.xspeed,self.yspeed)
 class ScreenProtect():
-    balls = []#创建一个列表用来装球
-    def __init__(self):
+    def __init__(self,num_balls):
+        self.balls = []  # 创建一个列表用来装球
         #每次屏保出现的球的数量是随机的
         self.num_balls = random.randint(8,15)
         self.root = tkinter.Tk()
@@ -76,6 +78,7 @@ class ScreenProtect():
         self.root.overrideredirect(1)
         #任何鼠标的移动都要取消屏保
         self.root.bind('<Motion>',self.myquit)
+        self.root.bind('<Key>',self.myquit)
         #求出屏幕的高和宽
         w = self.root.winfo_screenwidth()
         h = self.root.winfo_screenheight()
@@ -88,7 +91,7 @@ class ScreenProtect():
             self.balls.append(ball)
 
         self.run_screen_saver()
-        self.root.destroy()
+        self.root.mainloop()
     def run_screen_saver(self):
         for ball in self.balls:
             ball.move_ball()
@@ -98,6 +101,6 @@ class ScreenProtect():
         self.root.destroy()
 #调用程序
 if __name__ == '__main__':
-    ScreenProtect()
+    ScreenProtect(15)
 
 

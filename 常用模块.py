@@ -180,7 +180,7 @@ print(os.listdir('C:\\Users\\l\\PycharmProjects\\sunbin_1'))
 #os.rename('02.txt','002.txt')
 print('*'*20)
 #os.system()执行系统命令
-print(os.system('ls'))
+#print(os.system('ls'))
 #getenv() 获取指定的系统环境变量值
 # 相应的还有putenv
 #  格式：os.getenv('环境变量名')
@@ -276,3 +276,48 @@ def jfa(x,y):
     return x + y
 l = reduce(jfa,[i for i in range(1,20)])
 print(l)
+
+'''
+filter 函数
+过滤函数： 对一组数据进行过滤，符合条件的数据会生成一个新的列表并返回
+跟map相比较：
+相同：都对列表的每一个元素逐一进行操作
+不同：
+map会生成一个跟原来数据想对应的新队列
+filter不一定，只要符合条件的才会进入新的数据集合
+filter函数怎么写：
+利用给定函数进行判断
+返回值一定是个布尔值
+调用格式： filter(f, data), f是过滤函数， data是数据
+'''
+def filters(n):
+    return n % 2 == 0
+list = [i for i in range(1,10)]
+r = filter(filters,list)
+list1 = [j for j in r]
+print(list1)
+print(r)#这是一个可迭代的一个filter类，用for循环可以表示出来
+help(eval)
+'''
+装饰器(Decrator)
+在不改动函数代码的基础上无限制扩展函数功能的一种机制，本质上讲，装饰器是一个返回函数的高阶函数
+装饰器的使用： 使用@语法， 即在每次要扩展到函数定义前使用@+函数名
+'''
+import time
+def print_time(f):
+    def rapper(*args,**kwargs):
+        print('Time: ',time.ctime())
+        return f(*args,**kwargs)
+    return rapper
+@print_time
+def print_hello():
+    print('hello,world')
+print_hello()
+'''
+偏函数
+参数固定的函数，相当于一个由特定参数的函数体
+functools.partial的作用是，把一个函数某些函数固定，返回一个新函数
+'''
+from functools import partial
+int2 = partial(int,base=2)
+print(int2('10101010'))

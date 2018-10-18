@@ -102,7 +102,7 @@ print(dt)
 print(dt.day)
 print(dt.month)
 print(dt.year)
-# datetime.time: 提供一个理想和的时间， 居于哦hour， minute，sec，microsec等内容
+# datetime.time: 提供一个理想和的时间， 居于哦hour， minute，sec，microsec（微秒）等内容
 # datetime.datetime: 提供日期跟时间的组合
 # datetime.timedelta: 提供一个时间差，时间长度
 
@@ -313,6 +313,7 @@ def print_time(f):
 def print_hello():
     print('hello,world')
 print_hello()
+
 '''
 偏函数
 参数固定的函数，相当于一个由特定参数的函数体
@@ -321,3 +322,230 @@ functools.partial的作用是，把一个函数某些函数固定，返回一个
 from functools import partial
 int2 = partial(int,base=2)
 print(int2('10101010'))
+
+l1 = [1,2,3,4,5,6]
+l2 = [11,22,33,44,55,66]
+list1 = zip(l1,l2)
+print(list1)
+list2 = [i for i in list1]
+print(list2)
+list3 = enumerate(l2,start=1)
+print(list3)
+list4 = [j for j in list3]
+print(list4)
+
+#collections模块
+#namedtuple
+#deque
+
+#namedtuple 是tuple类型，是一个可命名的tuple
+from collections import namedtuple
+points = namedtuple('point',['x','y'])
+p =points(11,150)
+print(p.x)
+print(p[0])
+circles = namedtuple('circle',['x','y','r'])
+c = circles(110,150,100)
+print(c)
+
+#dequeue
+#比较方便的解决了频繁删除插入带来的效率问题
+from collections import deque
+d1 = deque([1,2,3,4,5,6])
+print(d1)
+print(d1.append(8))
+print(d1)
+print(d1.appendleft('x'))
+print(d1)
+
+# defaultdict
+#当直接读取dict不存在的属性时，直接返回默认值
+from collections import defaultdict
+func = lambda :'孙彬'
+d2 = defaultdict(func)
+d2['one'] = 1
+d2['two'] = 2
+d2['three'] = 3
+print(d2['one'])
+print(d2['four'])
+
+# Counter
+#统计字符串出现的次数
+from collections import Counter
+c= Counter('eqwfdrfasrewtrtsdgsdgretretgsrgreshtryrestagfhfghfgdh')
+print(c)
+
+with open(r'C:\Users\l\mygit\one.txt', 'r') as p:
+    strline = p.readline()# readline表示每次读取一行
+    while strline:
+        print(strline)
+        strline = p.readline()
+
+with open(r'C:\Users\l\mygit\one.txt', 'r') as p:
+    strread = p.read(1)#括号里填几就代表每次读写几个
+    print(len(strread))
+    while strread:
+        print(strread)
+        strread = p.read(1)
+
+'''
+logging模块级别的日志
+使用以下几个函数
+
+logging.debug(msg, *args, **kwargs) 创建一条严重级别为DEBUG的日志记录
+logging.info(msg, *args, **kwargs) 创建一条严重级别为INFO的日志记录
+logging.warning(msg, *args, **kwargs) 创建一条严重级别为WARNING的日志记录
+logging.error(msg, *args, **kwargs) 创建一条严重级别为ERROR的日志记录
+logging.critical(msg, *args, **kwargs) 创建一条严重级别为CRITICAL的日志记录
+logging.log(level, *args, **kwargs) 创建一条严重级别为level的日志记录
+logging.basicConfig(**kwargs) 对root logger进行一次性配置
+logging.basicConfig(**kwargs) 对root logger进行一次性配置
+
+只在第一次调用的时候起作用
+不配置logger则使用默认值
+输出： sys.stderr
+级别： WARNING
+格式： level:log_name:content
+'''
+
+'''
+format参数
+
+  asctime 	%(asctime)s 	日志事件发生的时间--人类可读时间，如：2003-07-08 16:49:45,896
+  created 	%(created)f 	日志事件发生的时间--时间戳，就是当时调用time.time()函数返回的值
+  relativeCreated 	%(relativeCreated)d 	日志事件发生的时间相对于logging模块加载时间的相对毫秒数（目前还不知道干嘛用的）
+  msecs 	%(msecs)d 	日志事件发生事件的毫秒部分
+  levelname 	%(levelname)s 	该日志记录的文字形式的日志级别（'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'）
+  levelno 	%(levelno)s 	该日志记录的数字形式的日志级别（10, 20, 30, 40, 50）
+  name 	%(name)s 	所使用的日志器名称，默认是'root'，因为默认使用的是 rootLogger
+  message 	%(message)s 	日志记录的文本内容，通过 msg % args计算得到的
+  pathname 	%(pathname)s 	调用日志记录函数的源码文件的全路径
+  filename 	%(filename)s 	pathname的文件名部分，包含文件后缀
+  module 	%(module)s 	filename的名称部分，不包含后缀
+  lineno 	%(lineno)d 	调用日志记录函数的源代码所在的行号
+  funcName 	%(funcName)s 	调用日志记录函数的函数名
+  process 	%(process)d 	进程ID
+  processName 	%(processName)s 	进程名称，Python 3.1新增
+  thread 	%(thread)d 	线程ID
+  threadName 	%(thread)s 	线程名称 
+'''
+
+import logging
+fm = '%(asctime)s- - - - %(levelname)s* * * * * %(message)s '
+logging.basicConfig(filename='logging_test', format=fm)
+
+logging.debug('is a debug')
+logging.info('is a info')
+logging.warning('is a warning')
+logging.error('is a error')
+logging.critical('is a critical')
+
+logging.log(logging.DEBUG,'this is a debug')
+logging.log(logging.INFO,'this is a info')
+logging.log(logging.WARNING,'this is a warning')
+logging.log(logging.ERROR,'this is a error')
+logging.log(logging.CRITICAL,'this is a critical')
+
+'''
+logging模块的处理流程
+四大组件
+
+日志器(Logger): 产生日志的一个接口
+处理器(Handler):把产生的日志发送到相应的目的地
+过滤器(Filter): 更精细的控制那些日志输出
+格式器(Formatter): 对输出信息进行格式化
+Logger
+
+产生一个日志
+
+操作
+
+ Logger.setLevel() 	设置日志器将会处理的日志消息的最低严重级别
+ Logger.addHandler() 和 Logger.removeHandler() 	为该logger对象添加 和 移除一个handler对象
+ Logger.addFilter() 和 Logger.removeFilter() 	为该logger对象添加 和 移除一个filter对象
+ Logger.debug: 产生一条debug级别的日志，同理，info，error，等
+ Logger.exception(): 创建类似于Logger.error的日志消息
+ Logger.log():获取一个明确的日志level参数类创建一个日志记录
+如何得到一个logger对象
+
+实例化
+logging.getLogger()
+Handler
+
+把log发送到指定位置
+
+方法
+
+setLevel
+setFormat
+addFilter, removeFilter
+不需要直接使用，Handler是基类
+
+  logging.StreamHandler 	将日志消息发送到输出到Stream，如std.out, std.err或任何file-like对象。
+  logging.FileHandler 	将日志消息发送到磁盘文件，默认情况下文件大小会无限增长
+  logging.handlers.RotatingFileHandler 	将日志消息发送到磁盘文件，并支持日志文件按大小切割
+  logging.hanlders.TimedRotatingFileHandler 	将日志消息发送到磁盘文件，并支持日志文件按时间切割
+  logging.handlers.HTTPHandler 	将日志消息以GET或POST的方式发送给一个HTTP服务器
+  logging.handlers.SMTPHandler 	将日志消息发送给一个指定的email地址
+  logging.NullHandler 	该Handler实例会忽略error messages，
+  通常被想使用logging的library开发者使用来避免'No handlers could be found for logger XXX'信息的出现。
+  
+Format类
+
+直接实例化
+可以继承Format添加特殊内容
+三个参数
+fmt：指定消息格式化字符串，如果不指定该参数则默认使用message的原始值
+datefmt：指定日期格式字符串，如果不指定该参数则默认使用"%Y-%m-%d %H:%M:%S"
+style：Python 3.2新增的参数，可取值为 '%', '{'和 '$'，如果不指定该参数则默认使用'%'
+Filter类
+
+可以被Handler和Logger使用
+控制传递过来的信息的具体内容
+'''
+
+
+'''
+1. 需求
+现在有以下几个日志记录的需求：
+    1）要求将所有级别的所有日志都写入磁盘文件中
+    2）all.log文件中记录所有的日志信息，日志格式为：日期和时间 - 日志级别 - 日志信息
+    3）error.log文件中单独记录error及以上级别的日志信息，日志格式为：日期和时间 - 日志级别 - 文件名[:行号] - 日志信息
+    4）要求all.log在每天凌晨进行日志切割
+2. 分析
+    1）要记录所有级别的日志，因此日志器的有效level需要设置为最低级别--DEBUG;
+    2）日志需要被发送到两个不同的目的地，因此需要为日志器设置两个handler；另外，两个目的地都是磁盘文件，
+       因此这两个handler都是与FileHandler相关的；
+    3）all.log要求按照时间进行日志切割，因此他需要用logging.handlers.TimedRotatingFileHandler; 
+       而error.log没有要求日志切割，因此可以使用FileHandler;
+    4）两个日志文件的格式不同，因此需要对这两个handler分别设置格式器；
+'''
+
+import logging.handlers
+import datetime
+#定义logger
+logger = logging.getLogger('sun\'s log')
+# 设置日志器将会处理的日志消息的最低严重级别
+logger.setLevel(logging.DEBUG)
+
+#设置第一个日志器all.log
+all_hander = logging.handlers.TimedRotatingFileHandler('all.log',when='midnight',interval=1,backupCount=7,
+                                                       atTime=datetime.time(0,0,0,0))
+all_hander.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+all_hander.setLevel(logging.DEBUG)
+
+error_hander = logging.handlers.RotatingFileHandler('error.log')
+error_hander.setLevel(logging.ERROR)
+error_hander.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(filename)s[:%(lineno)d)] - %(message)s' ))
+
+#把相应的处理器安装在logger上
+logger.addHandler(all_hander)
+logger.addHandler(error_hander)
+
+logger.debug('this is a debug')
+logger.info('this is a info')
+logger.warning('this is a warning')
+logger.error('this is a error')
+logger.critical('this is a critical')
+
+

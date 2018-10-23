@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<bedroom tyep="roommates">#根元素有且只能由一个
+    <Jiangbaolong> <!-- 这也是注释 -->
+        <!-- this-is-comment -->
+        <age>23</age>
+        <hobby>play basketball</hobby>
+        <gender>man</gender>
+    </Jiangbaolong>
+    <Sunbin>
+        <age>21</age>
+        <hobby>play games</hobby>
+        <gender>man</gender>
+    </Sunbin>
+    <Liuyang>
+        <age>23</age>
+        <hobby>play phone</hobby>
+        <gender>man</gender>
+    </Liuyang>
+    <Pengkaiyi>
+        <age>23</age>
+        <hobby>sleep</hobby>
+        <gender>man</gender>
+    </Pengkaiyi>
+</bedroom>

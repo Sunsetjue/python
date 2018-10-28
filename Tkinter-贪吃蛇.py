@@ -48,7 +48,7 @@ class Snake(threading.Thread):
         self.point_earned = 0
         self.food = Food(queue)#定义食物
         self.snake_points = [(495,55),(485,55),(475,55),(465,55),(455,55)]
-        self.start()
+        self.start()#启动多线程
     def run(self):
         '''
         启动多线程所必须要有的函数
@@ -132,8 +132,8 @@ class World(Tk):
     def game_over(self):
         self.is_game_over = True
         self.canvas.create_text(220, 150, fill='white',text='Game over')
-        pb = Button(self,text='Quit',command=self.destroy)
-        rb = Button(self,text='Again',command=self.restart)
+        pb = Button(self,text='Quit',command=self.destroy).pack()
+        rb = Button(self,text='Again',command=self.restart).pack()
 def main():
     q = queue.Queue()
     world = World(q)

@@ -183,7 +183,7 @@ class P():
         print('23333')
     def __call__(self):#函数当实例调用，自动调用
         print('322222')
-    def __str__(self):#
+    def __str__(self):#执行return后的数据和方法
         print('111111')
         return '2222'
     def __getattr__(self, age):#当实例没有时候，自动调用此函数
